@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rajeshwar Raja — Principal Software Architect</title>
+  <style>
+    :root {
+      --accent:    #0a66c2;
+      --accent-lt: #e8f0fe;
+      --text:      #1a1a2e;
+      --muted:     #555e6c;
+      --border:    #dde3ea;
+      --bg:        #f5f7fa;
+      --card:      #ffffff;
+      --radius:    10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #0a66c2 0%, #004182 100%);
+      color: #fff;
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+    .hero-avatar {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.4rem; font-weight: 700;
+      margin: 0 auto 20px;
+      letter-spacing: 1px;
+    }
+    .hero h1 { font-size: 2rem; font-weight: 700; letter-spacing: 0.5px; }
+    .hero .subtitle { font-size: 1.1rem; opacity: 0.88; margin-top: 6px; font-weight: 400; }
+    .hero .meta {
+      display: flex; flex-wrap: wrap; gap: 18px;
+      justify-content: center; margin-top: 20px;
+      font-size: 0.9rem; opacity: 0.85;
+    }
+    .hero .meta span { display: flex; align-items: center; gap: 6px; }
+    .hero .contact-links {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: center; margin-top: 20px;
+    }
+    .hero .contact-links a {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.18);
+      color: #fff; text-decoration: none;
+      padding: 7px 16px; border-radius: 20px;
+      font-size: 0.88rem; font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: background 0.2s;
+    }
+    .hero .contact-links a:hover { background: rgba(255,255,255,0.3); }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 28px;
+    }
+    @media (max-width: 680px) {
+      .container { grid-template-columns: 1fr; }
+      .sidebar { order: -1; }
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .card:last-child { margin-bottom: 0; }
+
+    .section-title {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 1.6px; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent-lt);
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* ── Timeline ── */
+    .timeline { list-style: none; }
+    .timeline li { position: relative; padding-left: 22px; margin-bottom: 26px; }
+    .timeline li:last-child { margin-bottom: 0; }
+    .timeline li::before {
+      content: '';
+      position: absolute; left: 0; top: 7px;
+      width: 10px; height: 10px;
+      background: var(--accent); border-radius: 50%;
+      border: 2px solid var(--accent-lt);
+    }
+    .timeline li::after {
+      content: '';
+      position: absolute; left: 4px; top: 17px;
+      width: 2px; bottom: -18px;
+      background: var(--border);
+    }
+    .timeline li:last-child::after { display: none; }
+    .job-header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px; }
+    .job-title { font-weight: 700; font-size: 1rem; color: var(--text); }
+    .job-dates {
+      font-size: 0.8rem; color: var(--muted);
+      background: var(--accent-lt); padding: 2px 10px;
+      border-radius: 12px; white-space: nowrap; align-self: flex-start;
+    }
+    .job-company { font-size: 0.88rem; color: var(--accent); font-weight: 600; margin-top: 2px; }
+    .job-location { font-size: 0.8rem; color: var(--muted); margin-top: 1px; }
+    .job-duties {
+      list-style: none; margin-top: 10px;
+    }
+    .job-duties li {
+      font-size: 0.88rem; color: var(--muted);
+      padding-left: 14px; position: relative; margin-bottom: 4px;
+    }
+    .job-duties li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
+
+    /* ── Education ── */
+    .edu-item { margin-bottom: 20px; }
+    .edu-item:last-child { margin-bottom: 0; }
+    .edu-degree { font-weight: 700; font-size: 0.97rem; }
+    .edu-school { font-size: 0.88rem; color: var(--accent); font-weight: 600; margin-top: 2px; }
+    .edu-meta { font-size: 0.8rem; color: var(--muted); margin-top: 2px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .badge {
+      display: inline-block; background: #e6f4ea; color: #2e7d32;
+      border-radius: 10px; font-size: 0.75rem; padding: 2px 10px; font-weight: 600;
+    }
+
+    /* ── Skills ── */
+    .skill-group { margin-bottom: 16px; }
+    .skill-group:last-child { margin-bottom: 0; }
+    .skill-group-label { font-size: 0.78rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 7px; }
+    .skill-tag {
+      background: var(--accent-lt);
+      color: var(--accent);
+      border-radius: 14px;
+      padding: 4px 13px;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    /* ── Summary ── */
+    .summary-text {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* ── Sidebar info box ── */
+    .info-row {
+      display: flex; gap: 10px;
+      font-size: 0.86rem; color: var(--muted);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .info-row .info-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+    .info-row a { color: var(--accent); text-decoration: none; word-break: break-all; }
+    .info-row a:hover { text-decoration: underline; }
+    .info-label { font-weight: 600; color: var(--text); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1px; }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 20px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<header class="hero">
+  <div class="hero-avatar">RR</div>
+  <h1>Rajeshwar Raja</h1>
+  <p class="subtitle">Principal Software Architect</p>
+  <div class="meta">
+    <span>📍 Bengaluru, Karnataka, India</span>
+    <span>🏢 Philips</span>
+    <span>🗓 18+ Years Experience</span>
+  </div>
+  <div class="contact-links">
+    <a href="mailto:rajeshwarraja@gmail.com">✉ rajeshwarraja@gmail.com</a>
+    <a href="https://www.linkedin.com/in/rajeshwar-raja-raja-12608728/" target="_blank" rel="noopener">🔗 LinkedIn</a>
+    <a href="https://github.com/rajeshwarraja" target="_blank" rel="noopener">🐙 GitHub</a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════ BODY ═══════════════════════════ -->
+<div class="container">
+
+  <!-- ─────────── MAIN COLUMN ─────────── -->
+  <main>
+
+    <!-- Summary -->
+    <section class="card">
+      <h2 class="section-title">⚡ Professional Summary</h2>
+      <p class="summary-text">
+        Seasoned Principal Software Architect with 18+ years of experience designing and delivering
+        robust, scalable software solutions in the healthcare technology domain. Deep expertise in
+        reference architecture, system design, and technical leadership across large cross-functional
+        teams. Passionate about driving continuous improvement, mentoring engineers, and translating
+        complex business requirements into high-quality software products.
+      </p>
+    </section>
+
+    <!-- Work Experience -->
+    <section class="card">
+      <h2 class="section-title">💼 Work Experience</h2>
+      <ul class="timeline">
+
+        <li>
+          <div class="job-header">
+            <span class="job-title">Principal Software Architect</span>
+            <span class="job-dates">Apr 2025 – Present · 1 yr 3 mos</span>
+          </div>
+          <div class="job-company">Philips</div>
+          <div class="job-location">Bengaluru, Karnataka, India · Full-time</div>
+          <ul class="job-duties">
+            <li>Define and govern enterprise-level reference architectures for healthcare software platforms.</li>
+            <li>Drive technical strategy, technology evaluation, and architectural decision-making across product lines.</li>
+            <li>Lead architecture reviews and guide cross-functional engineering teams.</li>
+          </ul>
+        </li>
+
+        <li>
+          <div class="job-header">
+            <span class="job-title">Senior Architect</span>
+            <span class="job-dates">Apr 2021 – Apr 2025 · 4 yrs 1 mo</span>
+          </div>
+          <div class="job-company">Philips</div>
+          <div class="job-location">Bengaluru, Karnataka, India · Full-time</div>
+          <ul class="job-duties">
+            <li>Provided technical leadership for complex software systems design and evolution.</li>
+            <li>Collaborated with product management to align architecture with roadmap and quality goals.</li>
+            <li>Established coding standards, design patterns, and best practices for engineering teams.</li>
+          </ul>
+        </li>
+
+        <li>
+          <div class="job-header">
+            <span class="job-title">Architect II</span>
+            <span class="job-dates">Apr 2018 – Apr 2021 · 3 yrs 1 mo</span>
+          </div>
+          <div class="job-company">Philips</div>
+          <div class="job-location">Bengaluru, Karnataka, India · Full-time</div>
+          <ul class="job-duties">
+            <li>Led technical leadership initiatives for multiple software modules and system components.</li>
+            <li>Owned design decisions and provided mentorship to senior developers.</li>
+          </ul>
+        </li>
+
+        <li>
+          <div class="job-header">
+            <span class="job-title">Architect I</span>
+            <span class="job-dates">Apr 2016 – Apr 2018 · 2 yrs 1 mo</span>
+          </div>
+          <div class="job-company">Philips</div>
+          <ul class="job-duties">
+            <li>Technical leadership on core software modules; drove design and architectural improvements.</li>
+          </ul>
+        </li>
+
+        <li>
+          <div class="job-header">
+            <span class="job-title">Senior Technical Specialist</span>
+            <span class="job-dates">Apr 2014 – Apr 2016 · 2 yrs 1 mo</span>
+          </div>
+          <div class="job-company">Philips</div>
+          <ul class="job-duties">
+            <li>Translated top-level designs into detailed, implementation-ready designs.</li>
+            <li>Ensured implementation adhered to quality goals and coding standards.</li>
+            <li>Conducted peer reviews and module-level testing (self &amp; team).</li>
+            <li>Championed continuous improvement, self-organization, and timely escalation.</li>
+          </ul>
+        </li>
+
+        <li>
+          <div class="job-header">
+            <span class="job-title">Technical Specialist</span>
+            <span class="job-dates">Apr 2012 – Apr 2014 · 2 yrs 1 mo</span>
+          </div>
+          <div class="job-company">Philips</div>
+          <ul class="job-duties">
+            <li>Translated top-level designs to detailed designs and led implementation for assigned modules.</li>
+            <li>Performed peer reviews, module testing, and continuous improvement activities.</li>
+          </ul>
+        </li>
+
+        <li>
+          <div class="job-header">
+            <span class="job-title">Senior Software Engineer</span>
+            <span class="job-dates">Jul 2009 – Apr 2012 · 2 yrs 10 mos</span>
+          </div>
+          <div class="job-company">Philips</div>
+          <ul class="job-duties">
+            <li>Developed and tested software modules per detailed design specifications.</li>
+            <li>Actively participated in peer reviews and quality improvement initiatives.</li>
+          </ul>
+        </li>
+
+        <li>
+          <div class="job-header">
+            <span class="job-title">Software Engineer</span>
+            <span class="job-dates">Jun 2006 – Jul 2009 · 3 yrs 2 mos</span>
+          </div>
+          <div class="job-company">Accord Software &amp; Systems</div>
+          <ul class="job-duties">
+            <li>Translated top-level design to detailed design and implemented features per quality goals.</li>
+          </ul>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- Education -->
+    <section class="card">
+      <h2 class="section-title">🎓 Education</h2>
+
+      <div class="edu-item">
+        <div class="edu-degree">Bachelor of Engineering (B.E.) — Computer Science &amp; Engineering</div>
+        <div class="edu-school">Anna University, Chennai</div>
+        <div class="edu-meta">
+          <span>2002 – 2006</span>
+          <span class="badge">First Class</span>
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-degree">Higher Secondary Certificate — Computer Science</div>
+        <div class="edu-school">National Higher Secondary School, Mannargudi</div>
+        <div class="edu-meta">
+          <span>2000 – 2002</span>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ─────────── SIDEBAR ─────────── -->
+  <aside class="sidebar">
+
+    <!-- Contact -->
+    <section class="card">
+      <h2 class="section-title">📬 Contact</h2>
+      <div class="info-row">
+        <span class="info-icon">✉</span>
+        <div>
+          <div class="info-label">Email</div>
+          <a href="mailto:rajeshwarraja@gmail.com">rajeshwarraja@gmail.com</a>
+        </div>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">🔗</span>
+        <div>
+          <div class="info-label">LinkedIn</div>
+          <a href="https://www.linkedin.com/in/rajeshwar-raja-raja-12608728/" target="_blank" rel="noopener">linkedin.com/in/rajeshwar-raja-raja-12608728</a>
+        </div>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">🐙</span>
+        <div>
+          <div class="info-label">GitHub</div>
+          <a href="https://github.com/rajeshwarraja" target="_blank" rel="noopener">github.com/rajeshwarraja</a>
+        </div>
+      </div>
+      <div class="info-row">
+        <span class="info-icon">📍</span>
+        <div>
+          <div class="info-label">Location</div>
+          Bengaluru, Karnataka, India
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="card">
+      <h2 class="section-title">🛠 Skills</h2>
+
+      <div class="skill-group">
+        <div class="skill-group-label">Architecture &amp; Design</div>
+        <div class="skills-list">
+          <span class="skill-tag">Reference Architecture</span>
+          <span class="skill-tag">System Design</span>
+          <span class="skill-tag">Software Design</span>
+          <span class="skill-tag">OOAD</span>
+          <span class="skill-tag">Functional Programming</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-label">Languages &amp; Platforms</div>
+        <div class="skills-list">
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">C#</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Windows</span>
+          <span class="skill-tag">Linux</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-label">Engineering Practices</div>
+        <div class="skills-list">
+          <span class="skill-tag">Multi-threaded Programming</span>
+          <span class="skill-tag">Network Programming</span>
+          <span class="skill-tag">CI/CD</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">CodeScene</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-label">Leadership</div>
+        <div class="skills-list">
+          <span class="skill-tag">Technology Management</span>
+          <span class="skill-tag">Mentoring</span>
+          <span class="skill-tag">Coaching</span>
+        </div>
+      </div>
+    </section>
+
+  </aside>
+</div>
+
+<footer>
+  © 2026 Rajeshwar Raja · Built with GitHub Pages
+</footer>
+
+</body>
+</html>
