@@ -3,8 +3,6 @@
 **Principal Software Architect** · 18+ Years Experience  
 📍 Bengaluru, Karnataka, India · 🏢 Philips
 
-🌐 **[View my CV →](https://rajeshwarraja.github.io/rajeshwarraja/)**
-
 ---
 
 ## About
